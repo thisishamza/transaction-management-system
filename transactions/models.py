@@ -1,17 +1,14 @@
 from django.db import models
 
 
-class TransactionTypes:
-    choices = (
-        (1, 'Debit'),
-        (2, 'Credit'),
-    )
-
+class TransactionTypes(models.TextChoices):
+    DEBIT='debit'
+    CREDIT='credit'
 
 class Transaction(models.Model):
-    account = models.ForeignKey('accounts.Account', related_name='transactions', on_delete=models.CASCADE)
+    account = models.ForeignKey('accounts.Account', related_name='transactions', on_delete=models.PROTECT)
     amount = models.DecimalField(decimal_places=2, max_digits=12)
-    type = models.PositiveSmallIntegerField(choices=TransactionTypes.choices, blank=False, null=True)
+    type = models.CharField(choices=TransactionTypes.choices, blank=False, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
