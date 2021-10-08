@@ -3,7 +3,7 @@ from .models import Account
 
 
 class AccountAdmin(admin.ModelAdmin):
-    list_display = ['bank', 'user', 'account_no', 'birth_date', 'gender', 'address', 'inital_balance']
+    list_display = ['bank', 'user', 'account_number', 'birth_date', 'gender', 'address', 'balance']
 
 
 admin.site.register(Account, AccountAdmin)

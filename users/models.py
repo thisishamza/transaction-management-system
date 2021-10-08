@@ -2,12 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 
-class UserTypeChoices:
-    choices = (
-        (1, 'Admin'),
-        (2, 'Customer'),
-        (3, 'Manager'),
-    )
+class UserTypeChoices(models.TextChoices):
+    ADMIN = 'admin'
+    CUSTOMER = 'customer'
+    MANAGER = 'manager'
+
 
 class User(AbstractUser):
     type = models.PositiveSmallIntegerField(
