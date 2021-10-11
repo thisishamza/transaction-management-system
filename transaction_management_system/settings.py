@@ -52,7 +52,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'audit_log.middleware.UserLoggingMiddleware',
 ]
 
 ROOT_URLCONF = 'transaction_management_system.urls'
