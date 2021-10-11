@@ -3,7 +3,7 @@ from .models import Transaction
 
 
 class TransactionAdmin(admin.ModelAdmin):
-    list_display = ['id', 'account', 'amount', 'type', 'timestamp']
+    list_display = ['id', 'account', 'amount', 'type']
 
 
-admin.site.register(Transaction,TransactionAdmin)
+admin.site.register(Transaction, TransactionAdmin)

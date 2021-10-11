@@ -9,5 +9,4 @@ class UserTypeChoices(models.TextChoices):
 
 
 class User(AbstractUser):
-    type = models.PositiveSmallIntegerField(
-        choices=UserTypeChoices.choices, blank=False, null=True)
+    type = models.CharField(choices=UserTypeChoices.choices, max_length=20)
