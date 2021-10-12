@@ -8,6 +8,5 @@ class TransactionListView(ListView):
     context_object_name = 'user_transactions'
 
     def get_queryset(self):
-        account_number_list = Account.objects.filter(user=self.request.user.id).values_list('account_number', flat=True)
-        transactions = Transaction.objects.filter(account__account_number__in=account_number_list)
+        transactions=Transaction.objects.filter(account__user=self.request.user)
         return transactions
