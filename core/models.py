@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 
 user = get_user_model()
 
-
 class AuditFieldMixin(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(user, verbose_name="created by", on_delete=models.PROTECT,
