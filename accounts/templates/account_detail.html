@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block head_title %}Account Details{% endblock %}
+
+{% block content %}
+    <h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Title: {{ account_details.user }}</h1>
+    <hr/>
+    <h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Bank: {{ account_details.bank }}</h1>
+    <hr/>
+    <h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Account Number: {{ account_details.account_number }}</h1>
+    <hr/>
+    <h1 class="font-mono font-bold text-3xl text-center pb-5 pt-10">Balance: {{ account_details.balance }}</h1>
+    <hr/>
+{% endblock %}
