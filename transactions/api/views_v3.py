@@ -1,0 +1,16 @@
+from transactions.models import Transaction
+from .serializers import TransactionSerializer
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+
+
+class TransactionListCreateAPI(generics.ListCreateAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = [IsAdminUser]
+
+
+class TransactionRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = TransactionSerializer
+    permission_classes = [IsAdminUser]
