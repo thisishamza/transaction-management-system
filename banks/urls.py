@@ -1,9 +1,16 @@
 from django.urls import path
 from banks.api.views import BankAPIView, BankDetailAPIView
+from banks.api.views_v2 import BankRetrieveAPI, BankListAPI, BankCreateAPI, BankUpdateAPI, BankDeleteAPI
 
 app_name = 'banks'
 
 urlpatterns = [
-    path('api', BankAPIView.as_view()),
-    path('api/<int:pk>', BankDetailAPIView.as_view()),
+    path('api/v1', BankAPIView.as_view()),
+    path('api/v1/<int:pk>', BankDetailAPIView.as_view()),
+    path('api/v2', BankListAPI.as_view()),
+    path('api/v2/create', BankCreateAPI.as_view()),
+    path('api/v2/retrieve/<int:pk>', BankRetrieveAPI.as_view()),
+    path('api/v2/update/<int:pk>', BankUpdateAPI.as_view()),
+    path('api/v2/delete/<int:pk>', BankDeleteAPI.as_view()),
+
 ]

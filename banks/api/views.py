@@ -1,13 +1,13 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 from banks.models import Bank
 from .serializers import BankSerializer
 
 
 class BankAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAdminUser]
 
     def get(self, request):
         banks = Bank.objects.all()
@@ -24,7 +24,7 @@ class BankAPIView(APIView):
 
 
 class BankDetailAPIView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = [IsAdminUser]
 
     def get_bank_object(self, pk):
         return Bank.objects.get(pk=pk)
