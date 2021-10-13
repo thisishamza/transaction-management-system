@@ -8,5 +8,6 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('accounts/', include('accounts.urls')),
     path('transactions/', include('transactions.urls')),
+    path('banks/', include('banks.urls')),
 
 ]
