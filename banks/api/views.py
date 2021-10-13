@@ -9,6 +9,6 @@ class BankAPIView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        bank = Bank.objects.all()
-        serializer = BankSerializer(bank, many=True)
-        return Response({"bank": serializer.data})
+        banks = Bank.objects.all()
+        serializer = BankSerializer(banks, many=True)
+        return Response({"banks": serializer.data})
