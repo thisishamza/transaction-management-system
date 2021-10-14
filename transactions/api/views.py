@@ -10,7 +10,7 @@ class TransactionAPIView(APIView):
     permission_classes = [IsCustomer]
 
     def get(self, request):
-        transactions = Transaction.objects.all()
+        transactions = Transaction.objects.filter(account__user=self.request.user)
         serializer = TransactionSerializer(transactions, many=True)
         return Response({"transactions": serializer.data})
 

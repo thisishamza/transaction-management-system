@@ -5,7 +5,9 @@ from core.permissions import IsCustomer
 
 
 class TransactionListAPI(generics.ListAPIView):
-    queryset = Transaction.objects.all()
+    def get_queryset(self):
+        return Transaction.objects.filter(account__user=self.request.user)
+
     serializer_class = TransactionSerializer
     permission_classes = [IsCustomer]
 
