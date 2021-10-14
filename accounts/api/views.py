@@ -1,13 +1,13 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAdminUser
+from core.permissions import IsCustomer
 from accounts.models import Account
 from .serializers import AccountSerializer
 
 
 class AccountAPIView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsCustomer]
 
     def get(self, request):
         accounts = Account.objects.all()
@@ -24,7 +24,7 @@ class AccountAPIView(APIView):
 
 
 class AccountDetailAPIView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsCustomer]
 
     def get_account_object(self, pk):
         return Account.objects.get(pk=pk)

@@ -1,13 +1,13 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAdminUser
+from core.permissions import IsCustomer
 from transactions.models import Transaction
 from .serializers import TransactionSerializer
 
 
 class TransactionAPIView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsCustomer]
 
     def get(self, request):
         transactions = Transaction.objects.all()
@@ -24,7 +24,7 @@ class TransactionAPIView(APIView):
 
 
 class TransactionDetailAPIView(APIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsCustomer]
 
     def get_transaction_object(self, pk):
         return Transaction.objects.get(pk=pk)
