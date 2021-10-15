@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from core.permissions import IsCustomer
+from core.permissions import IsCustomer, IsAccountOwnerOrReadOnly
 from accounts.models import Account
 from .serializers import AccountSerializer
 
@@ -10,7 +10,7 @@ class AccountAPIView(APIView):
     permission_classes = [IsCustomer]
 
     def get(self, request):
-        accounts = Account.objects.all()
+        accounts = Account.objects.filter(user=request.user)
         serializer = AccountSerializer(accounts, many=True)
         return Response({"accounts": serializer.data})
 
@@ -23,8 +23,8 @@ class AccountAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AccountDetailAPIView(APIView):
-    permission_classes = [IsCustomer]
+class AccountDetailAPIView(APIView, IsAccountOwnerOrReadOnly):
+    permission_classes = [IsCustomer, IsAccountOwnerOrReadOnly]
 
     def get_account_object(self, pk):
         return Account.objects.get(pk=pk)
