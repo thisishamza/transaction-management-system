@@ -12,7 +12,7 @@ class GenderChoices(models.TextChoices):
 
 
 class Account(AuditFieldMixin, SoftDeleteMixin):
-    bank = models.ForeignKey('banks.Bank', related_name='accounts', on_delete=models.PROTECT)
+    branch = models.ForeignKey('banks.Branch', related_name='accounts', on_delete=models.PROTECT)
     user = models.ForeignKey(user, related_name='accounts', on_delete=models.PROTECT)
     account_number = models.PositiveIntegerField(unique=True)
     birth_date = models.DateField(null=True, blank=True)
