@@ -13,7 +13,7 @@ class TransactionListCreateAPI(generics.ListCreateAPIView):
     permission_classes = [IsCustomer]
 
 
-class TransactionRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView, IsTransactionOwnerOrReadOnly):
+class TransactionRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Transaction.objects.all()
     serializer_class = TransactionSerializer
     permission_classes = [IsCustomer, IsTransactionOwnerOrReadOnly]

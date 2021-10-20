@@ -12,13 +12,13 @@ class AccountListAPI(generics.ListAPIView):
     permission_classes = [IsCustomer]
 
 
-class AccountRetrieveAPI(generics.RetrieveAPIView, IsAccountOwnerOrReadOnly):
+class AccountRetrieveAPI(generics.RetrieveAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     permission_classes = [IsCustomer, IsAccountOwnerOrReadOnly]
 
 
-class AccountCreateAPI(generics.CreateAPIView, IsAccountOwnerOrReadOnly):
+class AccountCreateAPI(generics.CreateAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     permission_classes = [IsCustomer, IsAccountOwnerOrReadOnly]

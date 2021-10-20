@@ -23,7 +23,7 @@ class AccountAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class AccountDetailAPIView(APIView, IsAccountOwnerOrReadOnly):
+class AccountDetailAPIView(APIView):
     permission_classes = [IsCustomer, IsAccountOwnerOrReadOnly]
 
     def get_account_object(self, pk):
