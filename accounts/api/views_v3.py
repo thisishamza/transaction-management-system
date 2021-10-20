@@ -7,6 +7,7 @@ from rest_framework.permissions import BasePermission, IsAuthenticatedOrReadOnly
 
 class IsOwnerOrReadOnly(BasePermission):
     message = "Owner can only view and edit this data"
+
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
@@ -18,10 +19,10 @@ class AccountListCreateAPI(generics.ListCreateAPIView):
         return Account.objects.filter(user=self.request.user)
 
     serializer_class = AccountSerializer
-    permission_classes = [IsCustomer, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsCustomer, IsAuthenticatedOrReadOnly]
 
 
-class AccountRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView, IsOwnerOrReadOnly):
+class AccountRetrieveUpdateDestroyAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     permission_classes = [IsCustomer, IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]

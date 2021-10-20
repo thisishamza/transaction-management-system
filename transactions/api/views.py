@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from core.permissions import IsCustomer
+from core.permissions import IsCustomer, IsTransactionOwnerOrReadOnly
 from transactions.models import Transaction
 from .serializers import TransactionSerializer
 
@@ -24,7 +24,7 @@ class TransactionAPIView(APIView):
 
 
 class TransactionDetailAPIView(APIView):
-    permission_classes = [IsCustomer]
+    permission_classes = [IsCustomer, IsTransactionOwnerOrReadOnly]
 
     def get_transaction_object(self, pk):
         return Transaction.objects.get(pk=pk)
