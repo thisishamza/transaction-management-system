@@ -14,25 +14,25 @@ class TestCaseBank(APITestCase):
                                         is_staff=True)
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
-        self.bank_data = {'name': 'Test bank', 'created_by': self.user.id, 'modified_by': self.user.id}
 
     def test_api_can_get_a_banklist(self):
         response = self.client.get(reverse('banks:bank-list'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_api_can_create_a_bank(self):
-        response = self.client.post(reverse('banks:bank-list'), self.bank_data)
+        bank_data = {'name': 'Test bank', 'created_by': self.user.id, 'modified_by': self.user.id}
+        response = self.client.post(reverse('banks:bank-list'), bank_data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_api_can_update_bank(self):
-        self.client.post(reverse('banks:bank-list'), self.bank_data)
-        bank = Bank.objects.first()
-        self.bank_data.update({'name': 'Something new'})
-        res = self.client.put(reverse('banks:bank', kwargs={'pk': bank.id}), self.bank_data)
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        bank = Bank.objects.create(name='test bank', created_by=self.user, modified_by=self.user)
+        bank_data = {'name': 'Something new'}
+        self.client.patch(reverse('banks:bank', kwargs={'pk': bank.id}), bank_data)
+        bank_name = Bank.objects.get(id=bank.id)
+        self.assertEqual(bank_data['name'], bank_name.name)
 
     def test_api_can_delete_bank(self):
-        self.client.post(reverse('banks:bank-list'), self.bank_data)
-        bank = Bank.objects.first()
-        response = self.client.delete(reverse('banks:bank', kwargs={'pk': bank.id}))
-        self.assertEquals(response.status_code, status.HTTP_204_NO_CONTENT)
+        bank = Bank.objects.create(name='test bank', created_by=self.user, modified_by=self.user)
+        self.client.delete(reverse('banks:bank', kwargs={'pk': bank.id}))
+        len_of_bank_data = len(Bank.objects.filter(id=bank.id))
+        self.assertEqual(len_of_bank_data, 0)

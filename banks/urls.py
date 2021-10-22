@@ -17,8 +17,8 @@ urlpatterns = [
     path('api/v2/retrieve/<int:pk>', BankRetrieveAPI.as_view()),
     path('api/v2/update/<int:pk>', BankUpdateAPI.as_view()),
     path('api/v2/delete/<int:pk>', BankDeleteAPI.as_view()),
-    path('api/v3', BankListCreateAPI.as_view()),
-    path('api/v3/<int:pk>', BankRetrieveUpdateDestroyAPI.as_view()),
+    path('api/v3', BankListCreateAPI.as_view(), name="bank-list"),
+    path('api/v3/<int:pk>', BankRetrieveUpdateDestroyAPI.as_view(), name="bank"),
 
     path('branch/api/v1', BranchAPIView.as_view()),
     path('branch/api/v1/<int:pk>', BranchDetailAPIView.as_view()),
