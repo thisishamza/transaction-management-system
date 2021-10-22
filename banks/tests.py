@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.contrib.auth.hashers import make_password
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
@@ -10,7 +11,8 @@ User = get_user_model()
 
 class TestCaseBank(APITestCase):
     def setUp(self):
-        self.user = User.objects.create(username='hamza', password='123456', type='admin', is_superuser=True,
+        self.user = User.objects.create(username='hamza', password=make_password('123456'), type='admin',
+                                        is_superuser=True,
                                         is_staff=True)
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
@@ -21,8 +23,9 @@ class TestCaseBank(APITestCase):
 
     def test_api_can_create_a_bank(self):
         bank_data = {'name': 'Test bank', 'created_by': self.user.id, 'modified_by': self.user.id}
-        response = self.client.post(reverse('banks:bank-list'), bank_data)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.client.post(reverse('banks:bank-list'), bank_data)
+        len_of_bank_data = Bank.objects.all().count()
+        self.assertEqual(len_of_bank_data, 1)
 
     def test_api_can_update_bank(self):
         bank = Bank.objects.create(name='test bank', created_by=self.user, modified_by=self.user)
@@ -34,5 +37,5 @@ class TestCaseBank(APITestCase):
     def test_api_can_delete_bank(self):
         bank = Bank.objects.create(name='test bank', created_by=self.user, modified_by=self.user)
         self.client.delete(reverse('banks:bank', kwargs={'pk': bank.id}))
-        len_of_bank_data = len(Bank.objects.filter(id=bank.id))
+        len_of_bank_data = Bank.objects.filter(id=bank.id).count()
         self.assertEqual(len_of_bank_data, 0)
