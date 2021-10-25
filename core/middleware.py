@@ -20,7 +20,6 @@ class RequestLogMiddleware:
             "request_path": request.get_full_path(),
         }
         response = self.get_response(request)
-
         if "/api" in request.get_full_path():
             req_body = json.loads(request.body) if request.body else {}
             log_data["request_body"] = req_body
@@ -50,7 +49,7 @@ class ErrorLogMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         if "/api" in request.get_full_path():
-            if str(response.status_code.startswith("4")) or str(response.status_code).startswith("5"):
+            if str(response.status_code).startswith("4") or str(response.status_code).startswith("5"):
                 error_response_obj = {
                     "request_path": request.get_full_path(),
                     "status_code": response.status_code,
