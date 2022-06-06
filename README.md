@@ -1,2 +1,2 @@
 # transaction-management-system 
-- python manage.py runserver 122142
+- python manage.py runserver
